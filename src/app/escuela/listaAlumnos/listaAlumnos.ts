@@ -1,9 +1,36 @@
 import { Component } from '@angular/core';
 
+import {FormGroup, FormControl, FormsModule, ReactiveFormsModule}
+from '@angular/forms';
+import { IAlumnos } from './alumnos';
 @Component({
-  imports: [],
+  imports: [FormsModule, ReactiveFormsModule],
   selector: 'app-listaAlumnos',
   styleUrl: './listaAlumnos.css',
   templateUrl: './listaAlumnos.html',
 })
-export class ListaAlumnos {}
+export class ListaAlumnos {
+  formulario!:FormGroup
+  alumno:IAlumnos={
+    matricula:'1223',
+    nombre:'hola',
+    correo:'ssss',
+    materia:'sss'
+  }
+
+  ngOnInit():void{
+    this.formulario=new FormGroup({
+      matricula:new FormControl(''),
+      nombre:new FormControl(''),
+      correo:new FormControl(''),
+      materia:new FormControl(''),
+    })
+  }
+
+  muestraAlumnos():void{
+    this.alumno.matricula=this.formulario.value.matricula
+    this.alumno.nombre=this.formulario.value.nombre
+    this.alumno.correo=this.formulario.value.correo
+    this.alumno.materia=this.formulario.value.materia
+  }
+}
